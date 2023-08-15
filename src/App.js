@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-// import { OrbitControls } from '@react-three/drei';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import './App.css';
 
 
 function App() {
@@ -35,7 +33,7 @@ function App() {
   // Init Camera
   const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,1000)
   camera.position.set(5,3,5)
-  
+
   // Init Controls
   const controls = new OrbitControls(camera, renderer.domElement)
   controls.target.set(0,0,0)
