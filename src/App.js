@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { XRButton } from 'three/addons/webxr/XRButton.js';
 
 // Import glb/gltf loader
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -17,6 +18,7 @@ function App() {
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.shadowMap.enabled = true
+  renderer.xr.enabled = true;
 
   // Init Scene
   const scene = new THREE.Scene()
@@ -80,23 +82,53 @@ function App() {
   controls.enablePan = false
   controls.enableDamping = true
 
+  // renderer.xr = new THREE.WebXRManager()
+
   // Animate 
   function animate(){
     requestAnimationFrame(animate)
     controls.update()
-    renderer.render(scene,camera)
+
+    // Only renderer.render out of renderer.xr if the session is not active
+    if(!renderer.xr.sessionActive){
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      renderer.render(scene, camera);
+    }
+    // renderer.render(scene,camera)
   }
 
   useEffect(()=>{
+    document.body.appendChild( XRButton.createButton( renderer ) );
     if(ref.current){
       ref.current.appendChild(renderer.domElement)
     }
     animate()
   },[])
+
+  // WebXR functions
+  const [toggleXR, setToggleXR] = useState(false)
   
+  // function enterAR(){
+  //   // renderer.xr.startSession()
+  // }
+  
+  // function exitAR(){
+  //   // renderer.xr.endSession();
+  // }
+  
+  useEffect(()=>{
+    if(toggleXR){
+      camera.matrixAutoUpdate = false;
+      enterAR()
+    }else{
+      exitAR()
+      camera.matrixAutoUpdate = true;
+    }
+  },[toggleXR])
+
   return (
     <div className="App" id='App' ref={ref}>
-      
+      <button className="toggleBtn" onClick={()=>setToggleXR(curr=>!curr)}>Turn Augmented Reality {toggleXR?"Off":"On"}</button>
     </div>
   );
 }

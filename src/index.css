@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.toggleBtn{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
