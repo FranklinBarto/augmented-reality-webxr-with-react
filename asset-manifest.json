@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/augmented-reality-webxr-with-react/static/css/main.3270cd30.css",
+    "main.js": "/augmented-reality-webxr-with-react/static/js/main.9e1b8b5b.js",
+    "static/js/787.59c36652.chunk.js": "/augmented-reality-webxr-with-react/static/js/787.59c36652.chunk.js",
+    "static/media/blender_model_export.glb": "/augmented-reality-webxr-with-react/static/media/blender_model_export.af61a5875c853d1413af.glb",
+    "index.html": "/augmented-reality-webxr-with-react/index.html",
+    "main.3270cd30.css.map": "/augmented-reality-webxr-with-react/static/css/main.3270cd30.css.map",
+    "main.9e1b8b5b.js.map": "/augmented-reality-webxr-with-react/static/js/main.9e1b8b5b.js.map",
+    "787.59c36652.chunk.js.map": "/augmented-reality-webxr-with-react/static/js/787.59c36652.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3270cd30.css",
+    "static/js/main.9e1b8b5b.js"
+  ]
+}
