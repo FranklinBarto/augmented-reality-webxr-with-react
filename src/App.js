@@ -30,7 +30,6 @@ function App() {
   // Add a square
   const Model_3D = useLoader(GLTFLoader, GLB_Model)
 
-  // const geometry = new THREE.BoxGeometry(1,1,1)
   console.log(Model_3D) // This will help you understand how the 3D model was structured and how to work with it
   const geometry = Model_3D.nodes.building.geometry
   const material = new THREE.MeshPhongMaterial( { color: 0x909090, dithering: true } );
@@ -82,25 +81,30 @@ function App() {
   controls.enablePan = false
   controls.enableDamping = true
 
-  // renderer.xr = new THREE.WebXRManager()
 
   // Animate 
   function animate(){
-    requestAnimationFrame(animate)
-    controls.update()
+    // We need to adjust the animate function from what three.js usually recommends does'nt work with web xr
+    // requestAnimationFrame(animate) // This should'nt work
+    renderer.setAnimationLoop( function () {
+        renderer.render( scene, camera );
+    } );
+  }
 
-    // Only renderer.render out of renderer.xr if the session is not active
-    if(!renderer.xr.sessionActive){
+  function onWindowResize() {
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
       renderer.setSize( window.innerWidth, window.innerHeight );
-      renderer.render(scene, camera);
-    }
-    // renderer.render(scene,camera)
+
   }
 
   useEffect(()=>{
-    document.body.appendChild( XRButton.createButton( renderer ) );
+    window.addEventListener( 'resize', onWindowResize );
     if(ref.current){
       ref.current.appendChild(renderer.domElement)
+      document.body.appendChild( XRButton.createButton( renderer ) );
     }
     animate()
   },[])
