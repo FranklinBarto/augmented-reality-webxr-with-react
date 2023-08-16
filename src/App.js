@@ -105,31 +105,9 @@ function App() {
     animate()
   },[])
 
-  // WebXR functions
-  const [toggleXR, setToggleXR] = useState(false)
-  
-  // function enterAR(){
-  //   // renderer.xr.startSession()
-  // }
-  
-  // function exitAR(){
-  //   // renderer.xr.endSession();
-  // }
-  
-  useEffect(()=>{
-    if(toggleXR){
-      camera.matrixAutoUpdate = false;
-      enterAR()
-    }else{
-      exitAR()
-      camera.matrixAutoUpdate = true;
-    }
-  },[toggleXR])
 
   return (
-    <div className="App" id='App' ref={ref}>
-      <button className="toggleBtn" onClick={()=>setToggleXR(curr=>!curr)}>Turn Augmented Reality {toggleXR?"Off":"On"}</button>
-    </div>
+    <div className="App" id='App' ref={ref}></div>
   );
 }
 
